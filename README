@@ -1,0 +1,23 @@
+barakpelman@mail.huji.ac.il
+033459520
+Barak Pelman
+
+===========  EX DESCRIPTION =============================================
+This code apply the game "Connect4". It consists of 7 classes out of which 2 related to GUI:
+1. Game - responsible for the main moves in the game and for the connection with the board
+2. Board - manages the state of the board at any given time
+3. GameRunner - ?
+4. Disc - creates the Disc object
+5. Ai - this class manage automatic game moves that will be operated by computer-player
+6. Start window - a GUI class that created the opening window and deal with player selection
+7. Gui - the main GUI class
+
+the file four_in_a_row.py creates the main objects of the game and thus run it
+
+
+
+
+
+
+
+
