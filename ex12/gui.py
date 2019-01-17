@@ -1,9 +1,15 @@
 import tkinter as tk
 from tkinter import *
+import time
 import sys
 
-HUMAN_INDICATOR = "Human"
+SLEEP_BETWEEN_AIS_IN_SECONDS = 1
 
+BOARD_ROW_NUMBER = 6
+
+BOARD_COL_NUMBER = 7
+
+HUMAN_INDICATOR = "Human"
 COMPUTER_INDICATOR = "Computer"
 
 
@@ -129,10 +135,17 @@ class Gui:
 
         self.buttons_frame = tk.Frame(self.root)
         self.buttons_frame.pack(side=tk.TOP)
-        self.create_buttons(self.buttons_frame)
+        buttons = self.create_buttons(self.buttons_frame)
 
         self.create_lower_bar()
         self.msg("Player1: Where do you put your disc?")
+
+        if player1 == COMPUTER_INDICATOR and player2 == COMPUTER_INDICATOR:
+            self.sleep_between_turns = SLEEP_BETWEEN_AIS_IN_SECONDS
+            for button in buttons:
+                button.config(state='disabled')
+        else:
+            self.sleep_between_turns = 0
         self.act_if_player_ai()
 
     def create_lower_bar(self):
@@ -164,9 +177,9 @@ class Gui:
         creates the board
         :param frame: where to create the board
         """
-        for i in range(6):
+        for i in range(BOARD_ROW_NUMBER):
             row = []
-            for j in range(7):
+            for j in range(BOARD_COL_NUMBER):
                 row.append(tk.Label(frame, image=self.empty_image))
             self.labels.append(row)
 
@@ -174,18 +187,22 @@ class Gui:
         """
         creates the slots in the grid
         """
-        for row in range(6):
-            for col in range(7):
+        for row in range(BOARD_ROW_NUMBER):
+            for col in range(BOARD_COL_NUMBER):
                 self.labels[row][col].grid(row=row, column=col, padx=0, pady=0)
 
     def create_buttons(self, frame):
         """
         creates the buttons
         :param frame: where to create the buttons
+        :returns the buttons constructed
         """
+        buttons = []
         for i in range(7):
             button = tk.Button(frame, text=str(i + 1), padx=45, command=self.col_change_event(i))
             button.grid(row=0, column=i)
+            buttons.append(button)
+        return buttons
 
     def act_if_player_ai(self):
         """
@@ -214,7 +231,9 @@ class Gui:
                     self.deal_with_winner()
                 else:
                     self.msg("There is no place here")
-                self.act_if_player_ai()
+                time.sleep(self.sleep_between_turns)
+                if not self.end_game:
+                    self.act_if_player_ai()
 
         return update_cl_selection
 
@@ -226,10 +245,10 @@ class Gui:
         if winner:
             self.msg("Player " + str(winner) + " WON!!")
             self.end_game = True
-
         elif self.gr.is_board_full():
             self.msg("Board is full! No one Wins")
             self.end_game = True
+
         else:
             self.manage_turn_display()
 
@@ -262,3 +281,4 @@ class Gui:
         else:
             self.labels[x][y] = tk.Label(parent, image=self.blue_image)
         self.slots_in_grid()
+
