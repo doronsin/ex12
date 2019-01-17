@@ -18,12 +18,12 @@ class StartWindow:
     responsible for the start window of the game
     """
 
-    def __init__(self, root):
+    def __init__(self):
         """
         the ctor of the class
         :param root:
         """
-        self.start_parent = root
+        self.start_parent = tk.Tk()
         self.start_parent.title("Connect Four | Opening window")
         self.player1 = HUMAN_INDICATOR
         self.player2 = HUMAN_INDICATOR
@@ -106,7 +106,7 @@ class Gui:
     the GUI of the game
     """
 
-    def __init__(self, root, gr, player1, player2, ai1, ai2):
+    def __init__(self, gr, player1, player2, ai1, ai2):
         """
         the ctor of the class
         :param root: the root of the gui
@@ -117,7 +117,7 @@ class Gui:
         :param ai2: ai for the secont player object
         """
         self.gr = gr
-        self.root = root
+        self.root = tk.Tk()
         self.root.title("Connect Four | Barak Pelman")
         self.end_game = False
         self.players_type_dict = {1: player1, 2: player2}
@@ -147,6 +147,7 @@ class Gui:
         else:
             self.sleep_between_turns = 0
         self.act_if_player_ai()
+        self.root.mainloop()
 
     def create_lower_bar(self):
         """
