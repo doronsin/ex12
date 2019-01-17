@@ -253,11 +253,13 @@ class Gui:
             self.end_game = True
             time.sleep(END_GAME_SLEEP)
             self.update_another_game()
+            self.root.destroy()
         elif self.gr.is_board_full():
             self.msg("Board is full! No one Wins")
             self.end_game = True
             time.sleep(END_GAME_SLEEP)
             self.update_another_game()
+            self.root.destroy()
 
         else:
             self.manage_turn_display()
@@ -301,7 +303,6 @@ class Gui:
             self.__another_game = True
         else:
             self.__another_game = False
-        self.root.destroy()
 
 
     def get_another_game(self):
