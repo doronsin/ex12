@@ -3,6 +3,8 @@ from tkinter import *
 import time
 import sys
 
+END_GAME_SLEEP = 3
+
 SLEEP_BETWEEN_AIS_IN_SECONDS = 1
 
 BOARD_ROW_NUMBER = 6
@@ -122,6 +124,7 @@ class Gui:
         self.end_game = False
         self.players_type_dict = {1: player1, 2: player2}
         self.ais_dict = {1: ai1, 2: ai2}
+        self.__another_game = None
 
         self.labels = []
         self.empty_image = tk.PhotoImage(file="ex12/empty.gif")  # All slots begin with an "empty" image
@@ -147,6 +150,8 @@ class Gui:
         else:
             self.sleep_between_turns = 0
         self.act_if_player_ai()
+
+    def run(self):
         self.root.mainloop()
 
     def create_lower_bar(self):
@@ -246,9 +251,13 @@ class Gui:
         if winner:
             self.msg("Player " + str(winner) + " WON!!")
             self.end_game = True
+            time.sleep(END_GAME_SLEEP)
+            self.update_another_game()
         elif self.gr.is_board_full():
             self.msg("Board is full! No one Wins")
             self.end_game = True
+            time.sleep(END_GAME_SLEEP)
+            self.update_another_game()
 
         else:
             self.manage_turn_display()
@@ -283,3 +292,17 @@ class Gui:
             self.labels[x][y] = tk.Label(parent, image=self.blue_image)
         self.slots_in_grid()
 
+    def update_another_game(self):
+        """
+        ask the player if he wants another game, and update the GUI object
+        """
+        another_game = input("do you want another game?")
+        if another_game == 'Y':
+            self.__another_game = True
+        else:
+            self.__another_game = False
+        self.root.destroy()
+
+
+    def get_another_game(self):
+        return self.__another_game
