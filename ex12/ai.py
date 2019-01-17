@@ -1,43 +1,28 @@
 import random
 
+BOARD_COL_NUMBER = 7
+BOARD_ROW_NUMBER = 6
+
+
 class AI:
-
     def __init__(self, game, player):
-
         self.__game = game
 
-    def find_legal_move(self, timeout=None):
-        # vertical_move = self.vertical_move()
-        # if vertical_move:
-        #     return vertical_move
+    def find_legal_move(self):
+        """
+        returns a legal move of the game
+        :return: the number of column in which to put disc at
+        """
+        if self.__game.get_winner() is not None:
+            raise Exception("No possible AI moves.")
         legal_moves = []
-        for row in range(6):
-            for col in range (7):
-                if self.__game.get_player_at(row, col) == None:
+        for row in range(BOARD_ROW_NUMBER):
+            for col in range(BOARD_COL_NUMBER):
+                if self.__game.get_player_at(row, col) is None:
                     legal_moves.append(col)
-            if legal_moves == []:
-                raise Exception("No possible AI moves")
+            if not legal_moves:
+                raise Exception("No possible AI moves.")
             return random.choice(legal_moves)
-
-
-
-        # for i in range (self.__game.BOARD_COL_NO):
-        #     if self.__game.get_board().get_empty_cell(i):
-        #         legal_moves.append(i)
-        # if legal_moves == []:
-        #     raise Exception("No possible AI moves")
-        # return random.choice(legal_moves)
-
-
-    def vertical_move(self):
-        for row in range(self.__game.BOARD_ROW_NO):
-            for col in range (self.__game.BOARD_COL_NO):
-                vertical_check = self.__game.get_board().is_ver_seq(row, col, 3)
-                if vertical_check:
-                    empty_cell = self.__game.get_board().get_empty_cell(col)
-                    if empty_cell and empty_cell[0]==row-1:
-                        return col
-
 
     def get_last_found_move(self):
         pass

@@ -129,4 +129,4 @@ class Board:
             disc_at_location = self.__board_list[row][col]
             return disc_at_location
         else:
-            raise Exception('Illegal Location.')
+            raise Exception('Illegal location.')

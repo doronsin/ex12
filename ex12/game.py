@@ -31,6 +31,8 @@ class Game:
         :param column: the colum in which to insert the disc
         :return: True if the disc inserted, false otherwise
         """
+        if self.get_winner() is not None:
+            raise Exception("Illegal move.")
         disc = Disc(self.__cur_player, (0, 0))
         coordination = self.__board.get_empty_cell(column)
         if coordination:
