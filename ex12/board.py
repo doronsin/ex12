@@ -117,3 +117,16 @@ class Board:
         """
         x, y = disc.get_coordination()
         self.__board_list[x][y] = disc
+
+    def get_disc_at(self, row, col):
+        """
+        returns the disc at a given location
+        :param row: the row number
+        :param col: the col number
+        :return: the disc in the current place
+        """
+        if row in range(0, len(self.__board_list)) and col in range(0, len(self.__board_list[0])):
+            disc_at_location = self.__board_list[row][col]
+            return disc_at_location
+        else:
+            raise Exception('Illegal Location.')

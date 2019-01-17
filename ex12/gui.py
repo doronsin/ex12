@@ -21,7 +21,6 @@ class StartWindow:
         self.start_parent.title("Connect Four | Opening window")
         self.player1 = HUMAN_INDICATOR
         self.player2 = HUMAN_INDICATOR
-        self.start_parent.geometry("270x100")
         self.design_window(self.start_parent)
 
     def design_window(self, root):
@@ -114,7 +113,6 @@ class Gui:
         self.gr = gr
         self.root = root
         self.root.title("Connect Four | Barak Pelman")
-        self.root.geometry("728x700")
         self.end_game = False
         self.players_type_dict = {1: player1, 2: player2}
         self.ais_dict = {1: ai1, 2: ai2}

@@ -36,11 +36,12 @@ class Game:
         if coordination:
             disc.set_coordination(coordination)
             self.__board.insert_disc(disc)
+            self.__change_player()
             return disc
         else:
             raise Exception("Illegal move.")
 
-    def change_player(self):
+    def __change_player(self):
         """
         switches to the other player
         """
@@ -72,15 +73,9 @@ class Game:
         :param col: the col
         :return:
         """
-        if row in range(0, self.BOARD_ROW_NO) and col in range(0, self.BOARD_COL_NO):
-            board_list = self.__board.get_board_list()
-            disc_at_location = board_list[row][col]
-            if disc_at_location:
-                return disc_at_location.get_player()
-            else:
-                return None
-        else:
-            raise Exception('Illegal Location.')
+        disc_at_location = self.__board.get_disc_at(row, col)
+        if disc_at_location:
+            return disc_at_location.get_player()
 
     def get_current_player(self):
         """

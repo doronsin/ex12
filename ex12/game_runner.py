@@ -22,7 +22,6 @@ class GameRunner:
         try:
             move_result = self.__game.make_move(col_selection)
             if move_result:
-                self.__game.change_player()
                 return move_result
         except Exception:
             return False
